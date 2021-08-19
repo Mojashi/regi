@@ -8,6 +8,7 @@ import (
 	"sync/atomic"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func serveWebUI(config RegressionTestConfig) {
@@ -37,7 +38,8 @@ func serveWebUI(config RegressionTestConfig) {
 		log.Print(string(out))
 		log.Print("successfully initialized!!!")
 	}
-	e.Static("/", config.StaticFilePos)
+
+	e.Use(middleware.Static(config.StaticFilePos))
 	go func() {
 		e.Logger.Fatal(e.Start(config.WebUIPort))
 	}()
