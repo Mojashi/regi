@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "http-proxy-middleware": "^2.0.1",
+    "prop-types": "^15.7.2",
+    "ra-data-json-server": "^3.17.2",
+    "react-admin": "^3.17.2",
+    "react-diff-viewer": "^3.1.1"
+  }
+}
