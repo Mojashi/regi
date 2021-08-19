@@ -49,7 +49,7 @@ func RegressionTestWithConfig(config RegressionTestConfig) echo.MiddlewareFunc {
 		config.Skipper = defaultSkipper
 	}
 	if config.StaticFilePos == "" {
-		config.StaticFilePos = "/var/log/regifront"
+		config.StaticFilePos = "/var/tmp/regifront"
 	}
 
 	var err error

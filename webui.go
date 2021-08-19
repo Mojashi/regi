@@ -19,9 +19,25 @@ func serveWebUI(config RegressionTestConfig) {
 	e.POST("/api/disable", postDisableWatch)
 
 	if _, err := os.Stat(config.StaticFilePos); os.IsNotExist(err) {
-		exec.Command("git clone ")
+		out, err := exec.Command("rm", "/var/tmp/regi", "-rf").Output()
+		log.Print(string(out))
+		if err != nil {
+			log.Fatal(err)
+		}
+		out, err = exec.Command("git", "clone", "https://github.com/Mojashi/regi.git", "/var/tmp/regi").Output()
+		log.Print(string(out))
+		if err != nil {
+			log.Fatal(err)
+		}
+		out, err = exec.Command("cp", "-r", "/var/tmp/regi/frontend/regi/build", config.StaticFilePos).Output()
+		if err != nil {
+			log.Print(config.StaticFilePos)
+			log.Fatal(err)
+		}
+		log.Print(string(out))
+		log.Print("successfully initialized!!!")
 	}
-	e.Static("/static", config.StaticFilePos)
+	e.Static("/", config.StaticFilePos)
 	go func() {
 		e.Logger.Fatal(e.Start(config.WebUIPort))
 	}()
